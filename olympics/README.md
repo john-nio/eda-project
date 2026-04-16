@@ -76,7 +76,7 @@ Olympics_EDA/
 - **13.8%** won a medal (Gold, Silver, or Bronze)
 - This is realistic — most Olympic participants don't medal
 
-![Medal Distribution](visualizations/No_Medal_.png)
+![Medal Distribution](visualizations/no_medal.png)
 
 ---
 
