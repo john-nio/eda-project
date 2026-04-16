@@ -93,7 +93,7 @@ Olympics_EDA/
 - Steady growth from ~100 athletes (1924) to ~600 athletes (2014)
 - More stable participation numbers
 
-![Participation Over Time](visualizations/20200-.png)
+![Participation Over Time](visualizations/participation_over_time.png)
 
 ---
 
@@ -128,7 +128,7 @@ Olympics_EDA/
 - **1980s-Present:** Both genders converging toward **~25-26 years**
 - **Overall trend:** Age differences between genders narrowing over time
 
-![Average Age Over Time](visualizations/age_over_time.png)
+![Average Age Over Time](visualizations/athlete_age.png)
 
 ---
 
@@ -143,7 +143,7 @@ Olympics_EDA/
 
 **Key Insight:** The stacked area chart shows the Olympics transforming from a male-only event to an increasingly gender-balanced competition.
 
-![Gender Participation](visualizations/gender_participation_time.png)
+![Gender Participation](visualizations/gender_participation.png)
 
 ---
 
@@ -164,7 +164,7 @@ Olympics_EDA/
 - **Lightest sports:** Gymnastics (~55-65 kg median)
 - **Clear sport-specific requirements:** Each sport has distinct physical profiles
 
-![Sport Distributions](visualizations/sport_distributions.png)
+![Sport Distributions](visualizations/distribution.png)
 
 ---
 
