@@ -29,7 +29,10 @@ Spotify_Churn_EDA/
 │   ├── subscription_dist.png                 # subscription type distribution
 │   ├── correlation_heatmap.png               # numeric feature correlations
 │   ├── skip_vs_listening_scatter.png         # skip rate vs listening time
-│   └── songs_vs_listening_scatter.png        # songs played vs listening time
+│   ├── songs_vs_listening_scatter.png        # songs played vs listening time
+│   ├── churn_offline_pct.png                 # churn rate — offline vs non-offline
+│   ├── skip_rate_subscription.png            # avg skip rate by subscription type
+│   └── churn_subscription_offline_heatmap.png # churn rate by subscription & offline
 │
 └── spotify_churn_eda.ipynb                   # EDA notebook
 ```
@@ -184,6 +187,47 @@ Spotify_Churn_EDA/
 
 ---
 
+### 12. Churn Rate — Offline vs Non-Offline Users
+- **Offline users churn more (26.2%)** than non-offline users (24.9%) — correcting a misleading insight from the earlier count chart
+- The grouped bar chart made offline users look like they retained better, but that was because there are simply more offline users overall
+- When measured as a **percentage**, offline listening does not protect against churn
+
+![Churn Offline Pct](visualizations/churn_offline_pct.png)
+
+---
+
+### 13. Average Skip Rate by Subscription Type
+- Every subscription type has an **identical skip rate of 0.30**
+- This is impossible in real-world data — it confirms skip rate was randomly generated independently of subscription type
+- **No subscription type skips more or less than another**
+
+![Skip Rate by Subscription](visualizations/skip_rate_subscription.png)
+
+---
+
+### 14. Churn Rate by Subscription & Offline Listening (Heatmap)
+- **Family + Offline** has the highest churn at **27.5%**
+- **Free + No Offline** has the lowest at **24.9%**
+- Missing cells reveal a dataset design quirk — Free users have no offline access, Family users all use offline
+- Combining two variables together does not reveal any stronger churn pattern
+
+![Churn Subscription Offline Heatmap](visualizations/churn_subscription_offline_heatmap.png)
+
+---
+
+## ⚠️ Data Quality Note
+
+After 20 visualizations, a clear pattern emerged — **this dataset is synthetically randomized**. Key evidence:
+
+- Every subscription type has an identical skip rate of exactly 0.30
+- Listening time, songs played, and age are uniformly distributed with no churn signal
+- The correlation heatmap shows near-zero correlation between all numeric features and `is_churned`
+- Churn rates across all segments fall within a narrow 2–3% range
+
+In a real-world scenario, this would prompt a data quality investigation before any modeling work. **Recognizing when data lacks predictive signal is just as important as finding insights when it does.** This is one of the most valuable skills an analyst can demonstrate.
+
+---
+
 ## 📊 Visualizations Summary
 
 | Chart | Type | Key Insight |
@@ -200,6 +244,9 @@ Spotify_Churn_EDA/
 | Correlation Heatmap | Heatmap | No strong numeric predictors of churn |
 | Skip vs Listening Time | Scatter | No clear pattern by churn status |
 | Songs vs Listening Time | Scatter | No separation by subscription type |
+| Churn — Offline vs Non-Offline | Bar | Offline users actually churn slightly more |
+| Skip Rate by Subscription | Bar | Identical 0.30 across all types — randomized data |
+| Churn by Subscription & Offline | Heatmap | No stronger pattern from combining variables |
 
 ---
 
