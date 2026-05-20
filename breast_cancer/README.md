@@ -34,7 +34,26 @@ Breast_Cancer_EDA/
 │   ├── kde_radius_mean.png                      # KDE plot — radius mean
 │   ├── corr_three_categories.png               # mean vs SE vs worst correlation
 │   ├── swarm_plots.png                          # swarm plots — top predictive features
-│   └── summary_stats_table.png                 # mean stats table — M vs B
+│   ├── summary_stats_table.png                 # mean stats table — M vs B
+│   ├── mean_vs_worst_comparison.png            # mean vs worst values side by side
+│   ├── outlier_analysis.png                    # outlier count per feature per diagnosis
+│   ├── cohens_d_separability.png               # Cohen's d feature separability score
+│   ├── diagnosis_by_feature_range.png          # diagnosis composition by feature range
+│   ├── cdf_top_features.png                    # cumulative distribution — top 4 features
+│   ├── tumor_fingerprint_heatmap.png           # complete tumor fingerprint — all 30 features
+│   ├── bubble_chart.png                        # concave points vs compactness — sized by area
+│   ├── strip_plot_with_means.png               # strip plots with group mean overlay
+│   ├── summary_dashboard.png                   # 4-panel summary dashboard
+│   ├── kde_all_mean_features.png               # KDE grid — all 10 mean features
+│   ├── diverging_pct_difference.png            # % difference M vs B — all 30 features
+│   ├── threshold_exceedance.png                # % of patients exceeding feature threshold
+│   ├── ridgeline_plot.png                      # ridgeline plot — all mean features
+│   ├── final_summary_table.png                 # color-coded complete summary table
+│   ├── 3d_scatter_top3.png                     # 3D scatter — top 3 predictors
+│   ├── 3d_scatter_rotating.gif                 # rotating 3D scatter animation
+│   ├── top10_pairwise_correlation.png          # pairwise correlation — top 10 features
+│   ├── worst_to_mean_ratio.png                 # worst/mean ratio per feature
+│   └── bump_chart_rankings.png                 # feature ranking shift across categories
 │
 └── breast_cancer_eda.ipynb                      # EDA notebook
 ```
@@ -52,6 +71,7 @@ Breast_Cancer_EDA/
 | Malignant cases | 212 (37.3%) |
 | Missing Values | None |
 | Feature Categories | Mean, Standard Error (SE), Worst |
+| Total Visualizations | 35+ across 12 chart types |
 | Source | University of Wisconsin |
 
 ### Feature Categories
@@ -218,6 +238,190 @@ radius, texture, perimeter, area, smoothness, compactness, concavity, concave po
 
 ---
 
+### 15. Mean vs Worst Comparison — All 10 Features
+- For every feature, the worst value is significantly higher than the mean — especially in malignant tumors
+- **Concavity and concave points** show the biggest amplification from mean to worst in malignant cases
+- **Fractal dimension** is the only feature where mean and worst are nearly identical for both groups
+
+![Mean vs Worst](visualizations/mean_vs_worst_comparison.png)
+
+---
+
+### 16. Outlier Analysis — Per Feature Per Diagnosis
+- Malignant tumors have significantly more outliers across most features
+- **Compactness and concavity** show the highest outlier counts in malignant cases
+- High outlier counts in malignant tumors confirm their unpredictable, irregular behavior
+
+![Outlier Analysis](visualizations/outlier_analysis.png)
+
+---
+
+### 17. Cohen's d — Feature Separability Score
+- **Concave points_mean** and **area_mean** score highest — strongest class separation
+- Features with Cohen's d > 1.5 are considered to have a large effect size
+- **Fractal dimension** scores near zero — statistically indistinguishable between M and B
+- This chart directly answers which features a machine learning model should prioritize
+
+![Cohen's d](visualizations/cohens_d_separability.png)
+
+---
+
+### 18. Diagnosis Composition by Feature Range
+- Shows the tipping point — at what value does a feature transition from mostly benign to mostly malignant
+- **Radius mean > ~15** — majority of cases become malignant
+- **Concavity mean > ~0.10** — malignant cases dominate
+- The dashed line at 50% marks the exact decision threshold for each feature
+
+![Diagnosis by Feature Range](visualizations/diagnosis_by_feature_range.png)
+
+---
+
+### 19. Cumulative Distribution — Top 4 Features
+- The horizontal gap between the two CDF curves shows how separable the classes are
+- **Concave points** — widest gap, strongest separator
+- **Area mean** — 90% of benign cases fall below ~800, while 90% of malignant cases are above ~600
+- The overlap zone visible in each chart is exactly what a machine learning classifier would learn to navigate
+
+![CDF Top Features](visualizations/cdf_top_features.png)
+
+---
+
+### 20. Tumor Fingerprint Heatmap — All 30 Features
+- Complete diagnostic profile of both tumor types across all 30 features in a single view
+- **Malignant row** is predominantly high values (red/orange) across mean and worst features
+- **SE columns** show a mixed pattern — confirming they are weaker predictors
+- **Fractal dimension** columns show nearly identical values for both rows
+
+![Tumor Fingerprint](visualizations/tumor_fingerprint_heatmap.png)
+
+---
+
+### 21. Bubble Chart — Concave Points vs Compactness
+- Encodes 4 variables at once — x axis, y axis, color (diagnosis), and bubble size (area mean)
+- Malignant bubbles are larger, higher, and further right — bigger, more compact, and more concave simultaneously
+- Benign bubbles cluster tightly in the lower-left corner with small sizes
+
+![Bubble Chart](visualizations/bubble_chart.png)
+
+---
+
+### 22. Strip Plot with Group Means — Top 6 Features
+- Every dot represents one patient — no information hidden
+- Bold mean line printed with exact value for instant readability
+- **Concave points_mean** — malignant cluster sits entirely above benign with minimal overlap
+- Shows both individual patient spread AND group average in one view
+
+![Strip Plot](visualizations/strip_plot_with_means.png)
+
+---
+
+### 23. Summary Dashboard — 4 Key Insights
+- Top 8 feature correlations, diagnosis distribution, normalized feature comparison, and category predictive power — all in one figure
+- **Worst features average 0.6+ correlation** vs mean features at ~0.5 and SE features at ~0.2
+- The perfect single chart to share as a project overview
+
+![Summary Dashboard](visualizations/summary_dashboard.png)
+
+---
+
+### 24. KDE Grid — All 10 Mean Features
+- Full distribution shape for every mean feature in one grid
+- **Concavity and concave points** — benign sharply peaked near zero, malignant spread wide
+- **Fractal dimension** — the two curves nearly perfectly overlapping
+- Dashed vertical lines mark each group's mean for instant comparison
+
+![KDE All Mean Features](visualizations/kde_all_mean_features.png)
+
+---
+
+### 25. Diverging Bar Chart — % Difference Across All 30 Features
+- Every single feature points right (red) — malignant is higher than benign across all 30 features without exception
+- **Concavity and concave points** show 200–250% difference — the longest bars
+- **Fractal dimension** near 0% — confirming it as the weakest predictor across all categories
+
+![Diverging % Difference](visualizations/diverging_pct_difference.png)
+
+---
+
+### 26. Threshold Exceedance — % of Patients Above Key Values
+- Answers the most clinically practical question: if a measurement crosses a threshold, how likely is malignancy?
+- **Concave points > 0.05** — ~90%+ of malignant vs ~10% of benign exceed this threshold
+- **Area > 800** — majority of malignant cases exceed this, minority of benign
+- The closest this EDA gets to a clinical decision support tool
+
+![Threshold Exceedance](visualizations/threshold_exceedance.png)
+
+---
+
+### 27. Ridgeline Plot — All Mean Features
+- All 10 mean features stacked as density curves in a single scrollable view
+- **Radius, area, perimeter** — two clearly separated humps, green left, red right
+- **Fractal dimension** — the two curves nearly perfectly overlapping
+- Most publication-worthy visual in the project
+
+![Ridgeline Plot](visualizations/ridgeline_plot.png)
+
+---
+
+### 28. Decision Boundary Zone — Top 2 Predictors
+- Annotated scatter plot showing where benign ends and malignant begins
+- Shaded overlap zone marks where diagnosis is ambiguous
+- "Mostly Benign" and "Mostly Malignant" zones labeled for non-data readers
+- Bridges EDA and machine learning — visually shows where a classifier would draw the line
+
+![Decision Boundary](visualizations/decision_boundary_zone.png)
+
+---
+
+### 29. 3D Scatter — Top 3 Predictors
+- Spatial view of cluster separation using concave points mean, radius worst, and perimeter worst
+- Benign cluster tucked in the low corner, malignant spread across the high end of all three axes
+- Available as both static PNG and rotating GIF
+
+![3D Scatter](visualizations/3d_scatter_top3.png)
+
+---
+
+### 30. Top 10 Pairwise Correlation Heatmap
+- Cleaner and more readable than the full 30-feature heatmap
+- **Radius, perimeter, area** correlate above 0.95 with each other — near-perfect multicollinearity
+- **Texture** shows the weakest correlations with all other features — carries independent information
+- In a machine learning model, only a few representative features from each cluster would be needed
+
+![Top 10 Pairwise](visualizations/top10_pairwise_correlation.png)
+
+---
+
+### 31. Worst to Mean Ratio — Per Feature Per Diagnosis
+- Reveals how much more extreme malignant tumors get at their worst vs their average
+- **Concavity and concave points** — malignant ratio much higher than benign
+- **Fractal dimension** — ratio nearly identical for both groups
+- Directly explains why worst features are stronger predictors than mean features
+
+![Worst to Mean Ratio](visualizations/worst_to_mean_ratio.png)
+
+---
+
+### 32. Bump Chart — Feature Ranking Across Categories
+- Shows how each feature's predictive rank shifts from mean → SE → worst
+- **Concave points** stays at rank 1 across all three categories
+- **Texture** drops significantly in SE category
+- **Fractal dimension** stays at rank 10 consistently — uniformly weak across all categories
+
+![Bump Chart](visualizations/bump_chart_rankings.png)
+
+---
+
+### 33. Final Summary Table
+- Complete color-coded reference card for all 10 mean features
+- Columns: Benign Mean, Benign Std, Malignant Mean, Malignant Std, % Difference, Correlation
+- Sorted by correlation — strongest predictors at top, weakest at bottom
+- Row colors: red = strong predictor, yellow = moderate, green = weak
+
+![Final Summary Table](visualizations/final_summary_table.png)
+
+---
+
 ## 🧠 Key Medical Insights
 
 1. **Size is the strongest indicator** — malignant tumors have significantly larger radius, perimeter, and area in both mean and worst measurements
@@ -230,6 +434,58 @@ radius, texture, perimeter, area, smoothness, compactness, concavity, concave po
 
 5. **SE features are weak predictors** — variability of measurements within a sample adds little predictive value compared to the actual measurements themselves
 
+6. **Malignant tumors are higher on every single feature** — the diverging bar chart confirms that malignant cases score higher than benign across all 30 features without a single exception
+
+7. **The decision boundary is visible** — concave points mean > 0.065 and perimeter worst > 115 together create a clear separation zone between benign and malignant cases
+
+8. **Multicollinearity is significant** — radius, perimeter, and area correlate above 0.95 with each other, meaning a machine learning model would not need all three
+
+---
+
+## 📊 Visualizations Summary
+
+| # | Chart | Type | Key Insight |
+|---|---|---|---|
+| 1 | Diagnosis Distribution | Bar + Pie | 62.7% benign, 37.3% malignant |
+| 2 | Correlation Heatmap | Heatmap | Strong multicollinearity in size features |
+| 3 | Top 10 Correlations | Bar | concave points_worst leads at 0.79 |
+| 4 | Mean Features | Box Plot | Clear size and shape separation |
+| 5 | Worst Features | Box Plot | Even clearer than mean features |
+| 6 | Key Distributions | Histogram | Bimodal separation visible |
+| 7 | Violin Plots | Violin | Concavity shows strongest visual gap |
+| 8 | Radius vs Area | Scatter | Near-perfect quadratic relationship |
+| 9 | Pairplot Top 5 | Pairplot | Most information-rich single chart |
+| 10 | Radar Chart | Radar | Complete tumor profile |
+| 11 | Worst Correlations | Bar | Worst > mean in all features |
+| 12 | Three Category Corr | Bar | Worst > mean > SE pattern |
+| 13 | Swarm Plots | Swarm | Every patient visible, clear separation |
+| 14 | Top Worst Dist | Histogram | Worst features extend much further |
+| 15 | Mean vs Worst | Grouped Bar | Malignant amplifies more at worst |
+| 16 | Outlier Analysis | Grouped Bar | Malignant has more outliers |
+| 17 | Cohen's d | Bar | Quantified separability per feature |
+| 18 | Feature Range | Stacked Bar | Tipping point per feature visible |
+| 19 | CDF | Line | Horizontal gap = separability |
+| 20 | Tumor Fingerprint | Heatmap | All 30 features in one view |
+| 21 | Bubble Chart | Scatter | 4 variables encoded at once |
+| 22 | Strip + Means | Strip | Individual patients + group average |
+| 23 | Summary Dashboard | Multi-panel | 4 key insights in one figure |
+| 24 | KDE Grid | KDE | All mean feature shapes at once |
+| 25 | Diverging Bar | Bar | M higher than B on all 30 features |
+| 26 | Threshold Chart | Grouped Bar | Clinical decision thresholds |
+| 27 | Ridgeline Plot | Ridge | Publication-worthy stacked view |
+| 28 | Decision Boundary | Scatter | Where benign ends, malignant begins |
+| 29 | 3D Scatter + GIF | 3D | Spatial cluster separation |
+| 30 | Top 10 Pairwise | Heatmap | Multicollinearity among top features |
+| 31 | Worst/Mean Ratio | Box Plot | Why worst features predict better |
+| 32 | Bump Chart | Bump | Rank shifts across categories |
+| 33 | Final Summary Table | Table | Complete color-coded reference card |
+
+---
+
+## 🤖 Next Steps
+
+> This dataset is a perfect candidate for a machine learning classification project. The EDA has identified the top predictive features — the next step is to build a logistic regression or random forest model to predict breast cancer diagnosis using `concave points_worst`, `perimeter_worst`, `radius_worst`, and `concave points_mean` as primary features.
+
 ---
 
 ## 🛠️ Tools Used
@@ -240,6 +496,8 @@ radius, texture, perimeter, area, smoothness, compactness, concavity, concave po
 - matplotlib
 - seaborn
 - scikit-learn (MinMaxScaler for normalization)
+- scipy (gaussian_kde, Cohen's d)
+- Pillow (rotating GIF animation)
 - Jupyter Notebook
 
 ---
@@ -249,7 +507,7 @@ radius, texture, perimeter, area, smoothness, compactness, concavity, concave po
 1. Clone the repository
 2. Install dependencies
 ```bash
-pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+pip install pandas numpy matplotlib seaborn scikit-learn scipy pillow jupyter
 ```
 3. Open the notebook
 ```bash
@@ -270,4 +528,4 @@ jupyter notebook breast_cancer_eda.ipynb
 ## 👤 Author
 
 **NIO**
-Third exploratory data analysis portfolio project — first project on real medical data, focused on feature analysis for breast cancer diagnosis classification
+Third exploratory data analysis portfolio project — first project on real medical data, focused on feature analysis for breast cancer diagnosis classification with 33 visualizations across 12 chart types
